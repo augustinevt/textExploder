@@ -7,67 +7,75 @@ exports["default"] = void 0;
 
 var _Modal = _interopRequireDefault(require("./components/Modal"));
 
+var _Document = _interopRequireDefault(require("./components/Document"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var dummyData = {
-  goals: {
-    v1: [{
-      text: 'intro',
-      id: 23
+  paragraphs: [{
+    label: 'init',
+    id: '0',
+    goals: {
+      v1: [{
+        text: 'intro',
+        id: 23
+      }, {
+        text: 'explain',
+        id: 35
+      }, {
+        text: 'conclude',
+        id: 67
+      }],
+      v2: [{
+        text: 'v1',
+        id: 23
+      }, {
+        text: 'explain uondl',
+        id: 35
+      }, {
+        text: 'concddlude',
+        id: 67
+      }]
+    },
+    sentences: {
+      v1: [{
+        id: 1,
+        text: 'Food is good.'
+      }, {
+        id: 30,
+        text: 'Food is poop.'
+      }, {
+        id: 31,
+        text: 'Food is snoopdog.'
+      }],
+      v2: [{
+        id: 1,
+        text: 'Food is fruad.'
+      }, {
+        id: 30,
+        text: 'Food is meat.'
+      }, {
+        id: 31,
+        text: 'Food is plant.'
+      }]
+    },
+    snippets: [{
+      id: 24,
+      text: 'Chilly Willie eats a philly'
     }, {
-      text: 'explain',
-      id: 35
+      id: 25,
+      text: 'sneaky is the foochamp'
     }, {
-      text: 'conclude',
-      id: 67
-    }],
-    v2: [{
-      text: 'v1',
-      id: 23
-    }, {
-      text: 'explain uondl',
-      id: 35
-    }, {
-      text: 'concddlude',
-      id: 67
+      id: 20,
+      text: 'I\'m a little bitch'
     }]
-  },
-  sentences: {
-    v1: [{
-      id: 1,
-      text: 'Food is good.'
-    }, {
-      id: 30,
-      text: 'Food is poop.'
-    }, {
-      id: 31,
-      text: 'Food is snoopdog.'
-    }],
-    v2: [{
-      id: 1,
-      text: 'Food is fruad.'
-    }, {
-      id: 30,
-      text: 'Food is meat.'
-    }, {
-      id: 31,
-      text: 'Food is plant.'
-    }]
-  },
-  snippets: [{
-    id: 24,
-    text: 'Chilly Willie eats a philly'
-  }, {
-    id: 25,
-    text: 'sneaky is the foochamp'
-  }, {
-    id: 20,
-    text: 'I\'m a little bitch'
-  }]
+  }],
+  templates: []
 };
 var _default = {
   dummyData: dummyData,
-  Modal: _Modal["default"]
+  Modal: _Modal["default"],
+  Document: _Document["default"]
 }; /////////////////
 // import React, { useState } from 'react'
 // import styled from 'styled-components'

@@ -9,13 +9,19 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _uuid = _interopRequireDefault(require("uuid"));
+
+var _NewParagraph = _interopRequireDefault(require("./NewParagraph"));
+
+var _List = _interopRequireDefault(require("./List"));
+
+var _Modal = _interopRequireDefault(require("./Modal"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -26,7 +32,7 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: center;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -39,43 +45,87 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 var Wrapper = _styledComponents["default"].div(_templateObject());
 
+var templates = [{
+  label: "Opinion",
+  goals: {
+    v1: [{
+      text: 'v2',
+      id: 23
+    }, {
+      text: 'Oh the pain',
+      id: 35
+    }, {
+      text: 'concddlude',
+      id: 67
+    }]
+  },
+  sentences: {
+    v1: [{
+      id: 1,
+      text: 'Arco claims to have eaten something like "------"(p. 119)'
+    }, {
+      id: 30,
+      text: 'Food is poop.'
+    }, {
+      id: 31,
+      text: 'Food is snoopdog.'
+    }]
+  },
+  snippets: []
+}, {
+  label: "Support",
+  goals: {
+    v1: [{
+      text: 'v1',
+      id: 23
+    }, {
+      text: 'explain uondl',
+      id: 35
+    }, {
+      text: 'concddlude',
+      id: 67
+    }]
+  },
+  sentences: {
+    v1: [{
+      id: 1,
+      text: 'Food is fruad.'
+    }, {
+      id: 30,
+      text: 'Food is meat.'
+    }, {
+      id: 31,
+      text: 'Food is plant.'
+    }]
+  },
+  snippets: []
+}];
+
 function _default(_ref) {
-  var ItemComponent = _ref.ItemComponent,
-      data = _ref.data,
-      addItem = _ref.addItem,
-      removeItem = _ref.removeItem,
-      NewItemComponent = _ref.NewItemComponent,
-      newItemProps = _ref.newItemProps;
+  var data = _ref.data;
 
-  var _useState = (0, _react.useState)(false),
+  var _useState = (0, _react.useState)(data.paragraphs),
       _useState2 = _slicedToArray(_useState, 2),
-      add = _useState2[0],
-      setAdd = _useState2[1];
+      paragraphs = _useState2[0],
+      setParagraphs = _useState2[1];
 
-  var addListItem = function addListItem(val) {
-    addItem(val);
-    setAdd(false);
+  var addParagraph = function addParagraph(newParagraph) {
+    newParagraph.id = (0, _uuid["default"])();
+    paragraphs.push(newParagraph);
   };
 
-  var InputForm = NewItemComponent ? NewItemComponent : ItemComponent;
-  return _react["default"].createElement(Wrapper, null, _react["default"].createElement("button", {
-    onClick: function onClick() {
-      return setAdd(true);
+  return _react["default"].createElement(Wrapper, null, _react["default"].createElement(_List["default"], {
+    data: data.paragraphs,
+    ItemComponent: _Modal["default"],
+    NewItemComponent: _NewParagraph["default"],
+    newItemProps: {
+      templates: templates
+    },
+    addItem: function addItem(val) {
+      return addParagraph(val);
+    },
+    removeItem: function removeItem(val) {
+      return console.log('');
     }
-  }, "+"), // NOTE: => fix the data prop!!!
-  data ? data.map(function (item) {
-    return _react["default"].createElement(ItemComponent, _extends({}, item, {
-      data: item,
-      addItem: addListItem,
-      removeItem: removeItem
-    }));
-  }) : "no items", add && _react["default"].createElement(InputForm, _extends({
-    text: ''
-  }, newItemProps, {
-    edit: true,
-    id: 77,
-    setAdd: setAdd,
-    addItem: addListItem,
-    removeItem: removeItem
-  })));
+  }));
 }

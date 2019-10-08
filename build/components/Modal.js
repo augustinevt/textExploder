@@ -45,28 +45,47 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  margin-bottom: 30px;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var Wrapper = _styledComponents["default"].div(_templateObject());
+
 function _default(_ref) {
   var data = _ref.data;
 
-  var _useState = (0, _react.useState)('v1'),
+  var _useState = (0, _react.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
-      version = _useState2[0],
-      setVersion = _useState2[1];
+      exploded = _useState2[0],
+      setExploded = _useState2[1];
 
-  var _useState3 = (0, _react.useState)(data.goals),
+  var _useState3 = (0, _react.useState)('v1'),
       _useState4 = _slicedToArray(_useState3, 2),
-      goals = _useState4[0],
-      setGoals = _useState4[1];
+      version = _useState4[0],
+      setVersion = _useState4[1];
 
-  var _useState5 = (0, _react.useState)(data.sentences),
+  var _useState5 = (0, _react.useState)(data.goals),
       _useState6 = _slicedToArray(_useState5, 2),
-      sentences = _useState6[0],
-      setSentences = _useState6[1];
+      goals = _useState6[0],
+      setGoals = _useState6[1];
 
-  var _useState7 = (0, _react.useState)(data.snippets),
+  var _useState7 = (0, _react.useState)(data.sentences),
       _useState8 = _slicedToArray(_useState7, 2),
-      snippets = _useState8[0],
-      setSnippets = _useState8[1];
+      sentences = _useState8[0],
+      setSentences = _useState8[1];
+
+  var _useState9 = (0, _react.useState)(data.snippets),
+      _useState10 = _slicedToArray(_useState9, 2),
+      snippets = _useState10[0],
+      setSnippets = _useState10[1];
 
   var addUpdate = function addUpdate(val, collection, setCollection, isVersioned) {
     var update = false;
@@ -87,49 +106,67 @@ function _default(_ref) {
     isVersioned ? setCollection(_objectSpread({}, collection, _defineProperty({}, version, newCollection))) : setCollection(newCollection);
   };
 
-  return _react["default"].createElement("div", null, _react["default"].createElement("button", {
-    onClick: function onClick() {
-      return setVersion('v1');
-    }
-  }, " v1 "), _react["default"].createElement("button", {
-    onClick: function onClick() {
-      return setVersion('v2');
-    }
-  }, " v2 "), _react["default"].createElement(_List["default"], {
-    data: goals[version],
-    ItemComponent: _Goals["default"],
-    addItem: function addItem(val) {
-      return addUpdate(val, goals, setGoals, true);
-    },
-    removeItem: function removeItem(goalId) {
-      return setGoals(_objectSpread({}, goals, _defineProperty({}, version, goals[version].filter(function (_ref2) {
-        var id = _ref2.id;
-        return id !== goalId;
-      }))));
-    }
-  }), _react["default"].createElement(_List["default"], {
-    data: sentences[version],
-    ItemComponent: _Sentence["default"],
-    addItem: function addItem(val) {
-      return addUpdate(val, sentences, setSentences, true);
-    },
-    removeItem: function removeItem(sentenceId) {
-      return setSentences(_objectSpread({}, sentences, _defineProperty({}, version, sentences[version].filter(function (_ref3) {
-        var id = _ref3.id;
-        return id !== sentenceId;
-      }))));
-    }
-  }), _react["default"].createElement(_List["default"], {
-    data: snippets,
-    ItemComponent: _Snippet["default"],
-    addItem: function addItem(val) {
-      return addUpdate(val, snippets, setSnippets, false);
-    },
-    removeItem: function removeItem(snippetsId) {
-      return setSnippets(snippets.filter(function (_ref4) {
-        var id = _ref4.id;
-        return id !== snippetsId;
+  var getJsx = function getJsx() {
+    if (exploded) {
+      return _react["default"].createElement(Wrapper, null, _react["default"].createElement("button", {
+        onClick: function onClick() {
+          return setExploded(false);
+        }
+      }, " implode "), _react["default"].createElement("h2", null, data.label && data.label), _react["default"].createElement("button", {
+        onClick: function onClick() {
+          return setVersion('v1');
+        }
+      }, " v1 "), _react["default"].createElement("button", {
+        onClick: function onClick() {
+          return setVersion('v2');
+        }
+      }, " v2 "), _react["default"].createElement(_List["default"], {
+        data: goals[version],
+        ItemComponent: _Goals["default"],
+        addItem: function addItem(val) {
+          return addUpdate(val, goals, setGoals, true);
+        },
+        removeItem: function removeItem(goalId) {
+          return setGoals(_objectSpread({}, goals, _defineProperty({}, version, goals[version].filter(function (_ref2) {
+            var id = _ref2.id;
+            return id !== goalId;
+          }))));
+        }
+      }), _react["default"].createElement(_List["default"], {
+        data: sentences[version],
+        ItemComponent: _Sentence["default"],
+        addItem: function addItem(val) {
+          return addUpdate(val, sentences, setSentences, true);
+        },
+        removeItem: function removeItem(sentenceId) {
+          return setSentences(_objectSpread({}, sentences, _defineProperty({}, version, sentences[version].filter(function (_ref3) {
+            var id = _ref3.id;
+            return id !== sentenceId;
+          }))));
+        }
+      }), _react["default"].createElement(_List["default"], {
+        data: snippets,
+        ItemComponent: _Snippet["default"],
+        addItem: function addItem(val) {
+          return addUpdate(val, snippets, setSnippets, false);
+        },
+        removeItem: function removeItem(snippetsId) {
+          return setSnippets(snippets.filter(function (_ref4) {
+            var id = _ref4.id;
+            return id !== snippetsId;
+          }));
+        }
       }));
+    } else {
+      return _react["default"].createElement(Wrapper, null, _react["default"].createElement("button", {
+        onClick: function onClick() {
+          return setExploded(true);
+        }
+      }, " explode "), _react["default"].createElement("div", null, sentences[version].map(function (sentence) {
+        return _react["default"].createElement("span", null, " ", sentence.text, " ");
+      })));
     }
-  }));
+  };
+
+  return getJsx();
 }

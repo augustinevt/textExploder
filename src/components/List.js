@@ -5,7 +5,7 @@ const Wrapper = styled.div`
   padding: 10px;
 `
 
-export default function({ItemComponent, data, addItem, removeItem}) {
+export default function({ItemComponent, data, addItem, removeItem, NewItemComponent, newItemProps}) {
 
   const [add, setAdd] = useState(false)
 
@@ -14,6 +14,8 @@ export default function({ItemComponent, data, addItem, removeItem}) {
     setAdd(false)
   }
 
+  const InputForm = NewItemComponent ? NewItemComponent : ItemComponent
+
   return (
     <Wrapper>
 
@@ -21,12 +23,12 @@ export default function({ItemComponent, data, addItem, removeItem}) {
         +
       </button>
 
-      {
-       data ? data.map((item) => (<ItemComponent {...item} addItem={addListItem} removeItem={removeItem} />)) : "no items"
+      {// NOTE: => fix the data prop!!!
+       data ? data.map((item) => (<ItemComponent {...item} data={item} addItem={addListItem} removeItem={removeItem} />)) : "no items"
       }
 
       {
-        add && (<ItemComponent text={''} edit={true} id={77} addItem={addListItem} removeItem={removeItem} />)
+        add && (<InputForm text={''} {...newItemProps} edit={true} id={77} setAdd={setAdd} addItem={addListItem} removeItem={removeItem} />)
       }
     </Wrapper>
   )
