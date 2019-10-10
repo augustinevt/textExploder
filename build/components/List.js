@@ -26,7 +26,7 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 100%;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41,6 +41,7 @@ var Wrapper = _styledComponents["default"].div(_templateObject());
 
 function _default(_ref) {
   var ItemComponent = _ref.ItemComponent,
+      itemProps = _ref.itemProps,
       data = _ref.data,
       addItem = _ref.addItem,
       removeItem = _ref.removeItem,
@@ -58,24 +59,25 @@ function _default(_ref) {
   };
 
   var InputForm = NewItemComponent ? NewItemComponent : ItemComponent;
-  return _react["default"].createElement(Wrapper, null, _react["default"].createElement("button", {
-    onClick: function onClick() {
-      return setAdd(true);
-    }
-  }, "+"), // NOTE: => fix the data prop!!!
+  return _react["default"].createElement(Wrapper, null, // NOTE: => fix the data prop!!!
   data ? data.map(function (item) {
-    return _react["default"].createElement(ItemComponent, _extends({}, item, {
+    return _react["default"].createElement(ItemComponent, _extends({}, item, itemProps, {
       data: item,
       addItem: addListItem,
       removeItem: removeItem
     }));
   }) : "no items", add && _react["default"].createElement(InputForm, _extends({
     text: ''
-  }, newItemProps, {
+  }, itemProps, {
+    itemProps: itemProps,
     edit: true,
     id: 77,
     setAdd: setAdd,
     addItem: addListItem,
     removeItem: removeItem
-  })));
+  })), _react["default"].createElement("button", {
+    onClick: function onClick() {
+      return setAdd(true);
+    }
+  }, "+"));
 }

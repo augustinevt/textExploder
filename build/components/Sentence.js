@@ -23,8 +23,28 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n\n  width: 5%;\n  color: red;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  text-align: left;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  border: solid;\n"]);
+  var data = _taggedTemplateLiteral(["\n\n  margin-right: ", ";\n\n  margin-bottom: ", ";\n  margin-right: ", ";\n  padding: ", ";\n  border-radius: 5px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -35,14 +55,31 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var Wrapper = _styledComponents["default"].div(_templateObject());
+var Wrapper = _styledComponents["default"].span(_templateObject(), function (_ref) {
+  var mode = _ref.mode;
+  return mode === 2 ? '0px' : '4px';
+}, function (_ref2) {
+  var mode = _ref2.mode;
+  return mode === 2 ? '8px' : '8px';
+}, function (_ref3) {
+  var mode = _ref3.mode;
+  return mode === 2 ? '8px' : '0px';
+}, function (_ref4) {
+  var mode = _ref4.mode;
+  return mode === 2 ? '10px' : '0px';
+});
 
-function _default(_ref) {
-  var id = _ref.id,
-      text = _ref.text,
-      edit = _ref.edit,
-      addItem = _ref.addItem,
-      removeItem = _ref.removeItem;
+var Text = _styledComponents["default"].span(_templateObject2());
+
+var Remove = _styledComponents["default"].span(_templateObject3());
+
+function _default(_ref5) {
+  var id = _ref5.id,
+      text = _ref5.text,
+      edit = _ref5.edit,
+      addItem = _ref5.addItem,
+      removeItem = _ref5.removeItem,
+      mode = _ref5.mode;
 
   var _useState = (0, _react.useState)(edit),
       _useState2 = _slicedToArray(_useState, 2),
@@ -54,8 +91,10 @@ function _default(_ref) {
       newText = _useState4[0],
       setNewText = _useState4[1];
 
-  var onChange = function onChange(_ref2) {
-    var value = _ref2.target.value;
+  console.log(mode);
+
+  var onChange = function onChange(_ref6) {
+    var value = _ref6.target.value;
     setNewText(value);
   };
 
@@ -79,7 +118,11 @@ function _default(_ref) {
     }
   };
 
-  return _react["default"].createElement(Wrapper, null, isEditing ? _react["default"].createElement("input", {
+  return _react["default"].createElement(Wrapper, {
+    mode: mode
+  }, _react["default"].createElement(Text, {
+    mode: mode
+  }, isEditing ? _react["default"].createElement("input", {
     value: newText,
     onKeyUp: onKeyPress,
     onChange: onChange
@@ -87,9 +130,9 @@ function _default(_ref) {
     onClick: function onClick() {
       return setIsEditing(true);
     }
-  }, text), _react["default"].createElement("div", {
+  }, text)), mode === 2 ? _react["default"].createElement(Remove, null, _react["default"].createElement("span", {
     onClick: function onClick() {
       return removeItem(id);
     }
-  }, "x"));
+  }, "x")) : null);
 }

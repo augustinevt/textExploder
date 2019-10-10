@@ -9,6 +9,12 @@ import Modal from './Modal'
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  padding: 30px;
+`
+
+const Body = styled.div`
+  width: 60%;
+
 `
 
 const templates = [
@@ -62,16 +68,16 @@ export default function({ data }) {
 
   return (
     <Wrapper>
-
-      <List
-        data={data.paragraphs}
-        ItemComponent={Modal}
-        NewItemComponent={NewParagraph}
-        newItemProps={{templates}}
-        addItem={(val) => addParagraph(val)}
-        removeItem={(val) => console.log('')}
-      />
-
+      <Body>
+        <List
+          data={data.paragraphs}
+          ItemComponent={Modal}
+          NewItemComponent={NewParagraph}
+          newItemProps={{templates}}
+          addItem={(val) => addParagraph(val)}
+          removeItem={(val) => console.log('')}
+        />
+      </Body>
     </Wrapper>
   )
 }

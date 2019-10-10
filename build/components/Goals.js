@@ -23,8 +23,28 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  width: 5%;\n  color: red;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  width: 95%;\n  justify-content: flex-start;\n  padding: 8px 8px;\n  text-align: left;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  border: solid;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  width: 100%;\n  margin-bottom: 8px;\n  box-shadow: 0px 0px 10px 5px lightgrey;\n  border-radius: 5px;\n  /* padding: 8px 2px; */\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -36,6 +56,10 @@ function _templateObject() {
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var Wrapper = _styledComponents["default"].div(_templateObject());
+
+var Text = _styledComponents["default"].div(_templateObject2());
+
+var Remove = _styledComponents["default"].div(_templateObject3());
 
 function _default(_ref) {
   var id = _ref.id,
@@ -79,7 +103,7 @@ function _default(_ref) {
     }
   };
 
-  return _react["default"].createElement(Wrapper, null, isEditing ? _react["default"].createElement("input", {
+  return _react["default"].createElement(Wrapper, null, _react["default"].createElement(Text, null, isEditing ? _react["default"].createElement("input", {
     value: newText,
     onKeyUp: onKeyPress,
     onChange: onChange
@@ -87,9 +111,9 @@ function _default(_ref) {
     onClick: function onClick() {
       return setIsEditing(true);
     }
-  }, text), _react["default"].createElement("div", {
+  }, text)), _react["default"].createElement(Remove, null, _react["default"].createElement("div", {
     onClick: function onClick() {
       return removeItem(id);
     }
-  }, "x"));
+  }, "x")));
 }

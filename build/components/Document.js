@@ -31,8 +31,18 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  width: 60%;\n\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: center;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: center;\n  padding: 30px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -44,6 +54,8 @@ function _templateObject() {
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var Wrapper = _styledComponents["default"].div(_templateObject());
+
+var Body = _styledComponents["default"].div(_templateObject2());
 
 var templates = [{
   label: "Opinion",
@@ -114,7 +126,7 @@ function _default(_ref) {
     paragraphs.push(newParagraph);
   };
 
-  return _react["default"].createElement(Wrapper, null, _react["default"].createElement(_List["default"], {
+  return _react["default"].createElement(Wrapper, null, _react["default"].createElement(Body, null, _react["default"].createElement(_List["default"], {
     data: data.paragraphs,
     ItemComponent: _Modal["default"],
     NewItemComponent: _NewParagraph["default"],
@@ -127,5 +139,5 @@ function _default(_ref) {
     removeItem: function removeItem(val) {
       return console.log('');
     }
-  }));
+  })));
 }

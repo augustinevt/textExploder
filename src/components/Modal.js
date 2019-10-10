@@ -8,6 +8,28 @@ import Snippet from './Snippet'
 
 const Wrapper = styled.div`
   margin-bottom: 30px;
+  width: 100%;
+  box-shadow: 0px 0px 10px 5px lightgrey;
+  border-radius: 9px;
+  padding: 8px;
+`
+
+const ImplodedWrapper = styled.div`
+
+`
+
+const GoalsListWrapper = styled.div`
+  box-shadow: 0px 0px 10px 5px lightgrey;
+  border-radius: 9px;
+  padding: 8px;
+  margin-bottom: 20px;
+  display:flex;
+`
+const ListWrapper = styled.span`
+  /* box-shadow: 0px 0px 10px 5px lightgrey;
+  border-radius: 9px;
+  padding: 8px; */
+  margin-bottom: 20px;
 `
 
 export default function({data}) {
@@ -47,36 +69,51 @@ export default function({data}) {
             <button onClick={() => setVersion('v1')}> v1 </button>
             <button onClick={() => setVersion('v2')}> v2 </button>
 
-            <List
-              data={goals[version]}
-              ItemComponent={Goals}
-              addItem={(val) => addUpdate(val, goals, setGoals, true)}
-              removeItem={(goalId) => setGoals({...goals, [version]: goals[version].filter(({id}) => id !== goalId)})}
-            />
-            <List
-              data={sentences[version]}
-              ItemComponent={Sentence}
-              addItem={(val) => addUpdate(val, sentences, setSentences, true)}
-              removeItem={(sentenceId) => setSentences({...sentences, [version]: sentences[version].filter(({id}) => id !== sentenceId)})}
-            />
-            <List
-              data={snippets}
-              ItemComponent={Snippet}
-              addItem={(val) => addUpdate(val, snippets, setSnippets, false)}
-              removeItem={(snippetsId) => setSnippets(snippets.filter(({id}) => id !== snippetsId))}
-            />
+            <h3> Goals </h3>
+            <GoalsListWrapper>
+              <List
+                data={goals[version]}
+                itemProps={{mode: 2}}
+                ItemComponent={Goals}
+                addItem={(val) => addUpdate(val, goals, setGoals, true)}
+                removeItem={(goalId) => setGoals({...goals, [version]: goals[version].filter(({id}) => id !== goalId)})}
+              />
+            </GoalsListWrapper>
+            <ListWrapper>
+              <List
+                data={sentences[version]}
+                itemProps={{mode: 2}}
+                ItemComponent={Sentence}
+                addItem={(val) => addUpdate(val, sentences, setSentences, true)}
+                removeItem={(sentenceId) => setSentences({...sentences, [version]: sentences[version].filter(({id}) => id !== sentenceId)})}
+              />
+            </ListWrapper>
+            <h3> Snippets </h3>
+            <ListWrapper>
+              <List
+                data={snippets}
+                itemProps={{mode: 2}}
+                ItemComponent={Snippet}
+                addItem={(val) => addUpdate(val, snippets, setSnippets, false)}
+                removeItem={(snippetsId) => setSnippets(snippets.filter(({id}) => id !== snippetsId))}
+              />
+            </ListWrapper>
         </Wrapper>
       )
     } else {
       return (
-        <Wrapper>
+        <ImplodedWrapper>
           <button onClick={() => setExploded(true)}> explode </button>
+            {sentences[version].map( sentence =>
+              <Sentence
+                {...sentence}
+                mode={1}
+                addItem={(val) => addUpdate(val, sentences, setSentences, true)}
+              />
+            )}
 
-          <div>
-            {sentences[version].map( sentence => <span> {sentence.text} </span>)}
-          </div>
 
-        </Wrapper>
+        </ImplodedWrapper>
       )
     }
   }

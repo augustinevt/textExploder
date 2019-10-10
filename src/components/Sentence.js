@@ -1,13 +1,30 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 
-const Wrapper = styled.div`
-  border: solid;
+const Wrapper = styled.span`
+
+  margin-right: ${({mode}) => mode === 2 ? '0px' : '4px'};
+
+  margin-bottom: ${({mode}) => mode === 2 ? '8px' : '8px'};
+  margin-right: ${({mode}) => mode === 2 ? '8px' : '0px'};
+  padding: ${({mode}) => mode === 2 ? '10px' : '0px'};
+  border-radius: 5px;
 `
-export default function({id, text, edit, addItem, removeItem}) {
+const Text = styled.span`
+  text-align: left;
+`
+const Remove = styled.span`
+
+  width: 5%;
+  color: red;
+`
+
+export default function({id, text, edit, addItem, removeItem, mode}) {
 
   const [isEditing, setIsEditing] = useState(edit)
   const [newText, setNewText] = useState(text)
+
+  console.log(mode)
 
   const onChange = ({target: {value}}) => {
     setNewText(value)
@@ -30,13 +47,15 @@ export default function({id, text, edit, addItem, removeItem}) {
   }
 
   return (
-    <Wrapper>
+    <Wrapper mode={mode}>
+      <Text mode={mode}>
+        {
+          isEditing ? <input value={newText} onKeyUp={onKeyPress} onChange={onChange} /> : <span onClick={() => setIsEditing(true)}>{text}</span>
+        }
+      </Text>
 
-      {
-        isEditing ? <input value={newText} onKeyUp={onKeyPress} onChange={onChange} /> : <span onClick={() => setIsEditing(true)}>{text}</span>
-      }
+        { mode === 2 ? <Remove><span onClick={() => removeItem(id)}>x</span></Remove> : null }
 
-      <div onClick={() => removeItem(id)}>x</div>
 
     </Wrapper>
   )

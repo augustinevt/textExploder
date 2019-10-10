@@ -17,14 +17,14 @@ var dummyData = {
     id: '0',
     goals: {
       v1: [{
-        text: 'intro',
-        id: 23
+        id: 1,
+        text: 'Food is good.'
       }, {
-        text: 'explain',
-        id: 35
+        id: 30,
+        text: 'Food is poop.'
       }, {
-        text: 'conclude',
-        id: 67
+        id: 31,
+        text: 'Food is snoopdog.'
       }],
       v2: [{
         text: 'v1',
@@ -39,14 +39,20 @@ var dummyData = {
     },
     sentences: {
       v1: [{
-        id: 1,
-        text: 'Food is good.'
+        text: 'alley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also th',
+        id: 23
       }, {
-        id: 30,
-        text: 'Food is poop.'
+        text: 'alley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also th',
+        id: 35
       }, {
-        id: 31,
-        text: 'Food is snoopdog.'
+        text: 'alley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also th',
+        id: 67
+      }, {
+        text: 'alley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also th',
+        id: 69
+      }, {
+        text: 'alley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also th',
+        id: 68
       }],
       v2: [{
         id: 1,
@@ -61,7 +67,7 @@ var dummyData = {
     },
     snippets: [{
       id: 24,
-      text: 'Chilly Willie eats a philly'
+      text: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recentl'
     }, {
       id: 25,
       text: 'sneaky is the foochamp'

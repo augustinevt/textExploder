@@ -23,6 +23,8 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -45,8 +47,38 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  /* box-shadow: 0px 0px 10px 5px lightgrey;\n  border-radius: 9px;\n  padding: 8px; */\n  margin-bottom: 20px;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  box-shadow: 0px 0px 10px 5px lightgrey;\n  border-radius: 9px;\n  padding: 8px;\n  margin-bottom: 20px;\n  display:flex;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  margin-bottom: 30px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-bottom: 30px;\n  width: 100%;\n  box-shadow: 0px 0px 10px 5px lightgrey;\n  border-radius: 9px;\n  padding: 8px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -58,6 +90,12 @@ function _templateObject() {
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var Wrapper = _styledComponents["default"].div(_templateObject());
+
+var ImplodedWrapper = _styledComponents["default"].div(_templateObject2());
+
+var GoalsListWrapper = _styledComponents["default"].div(_templateObject3());
+
+var ListWrapper = _styledComponents["default"].span(_templateObject4());
 
 function _default(_ref) {
   var data = _ref.data;
@@ -120,8 +158,11 @@ function _default(_ref) {
         onClick: function onClick() {
           return setVersion('v2');
         }
-      }, " v2 "), _react["default"].createElement(_List["default"], {
+      }, " v2 "), _react["default"].createElement("h3", null, " Goals "), _react["default"].createElement(GoalsListWrapper, null, _react["default"].createElement(_List["default"], {
         data: goals[version],
+        itemProps: {
+          mode: 2
+        },
         ItemComponent: _Goals["default"],
         addItem: function addItem(val) {
           return addUpdate(val, goals, setGoals, true);
@@ -132,8 +173,11 @@ function _default(_ref) {
             return id !== goalId;
           }))));
         }
-      }), _react["default"].createElement(_List["default"], {
+      })), _react["default"].createElement(ListWrapper, null, _react["default"].createElement(_List["default"], {
         data: sentences[version],
+        itemProps: {
+          mode: 2
+        },
         ItemComponent: _Sentence["default"],
         addItem: function addItem(val) {
           return addUpdate(val, sentences, setSentences, true);
@@ -144,8 +188,11 @@ function _default(_ref) {
             return id !== sentenceId;
           }))));
         }
-      }), _react["default"].createElement(_List["default"], {
+      })), _react["default"].createElement("h3", null, " Snippets "), _react["default"].createElement(ListWrapper, null, _react["default"].createElement(_List["default"], {
         data: snippets,
+        itemProps: {
+          mode: 2
+        },
         ItemComponent: _Snippet["default"],
         addItem: function addItem(val) {
           return addUpdate(val, snippets, setSnippets, false);
@@ -156,15 +203,20 @@ function _default(_ref) {
             return id !== snippetsId;
           }));
         }
-      }));
+      })));
     } else {
-      return _react["default"].createElement(Wrapper, null, _react["default"].createElement("button", {
+      return _react["default"].createElement(ImplodedWrapper, null, _react["default"].createElement("button", {
         onClick: function onClick() {
           return setExploded(true);
         }
-      }, " explode "), _react["default"].createElement("div", null, sentences[version].map(function (sentence) {
-        return _react["default"].createElement("span", null, " ", sentence.text, " ");
-      })));
+      }, " explode "), sentences[version].map(function (sentence) {
+        return _react["default"].createElement(_Sentence["default"], _extends({}, sentence, {
+          mode: 1,
+          addItem: function addItem(val) {
+            return addUpdate(val, sentences, setSentences, true);
+          }
+        }));
+      }));
     }
   };
 
