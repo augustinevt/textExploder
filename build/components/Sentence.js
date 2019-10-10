@@ -23,8 +23,18 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  color: grey;\n\n  &:hover {\n    color: black;\n  }\n\n  &:active, &:focus {\n    color: black;\n    border: none;\n    outline: none;\n  }\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n\n  width: 5%;\n  color: red;\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 5%;\n  color: red;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -44,7 +54,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n\n  margin-right: ", ";\n\n  margin-bottom: ", ";\n  margin-right: ", ";\n  padding: ", ";\n  border-radius: 5px;\n"]);
+  var data = _taggedTemplateLiteral(["\n\n  display: ", ";\n  margin-right: ", ";\n  border: ", ";\n  line-height: ", ";\n  margin-bottom: ", ";\n  margin-right: ", ";\n  padding: ", ";\n  border-radius: 5px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -57,15 +67,24 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 var Wrapper = _styledComponents["default"].span(_templateObject(), function (_ref) {
   var mode = _ref.mode;
-  return mode === 2 ? '0px' : '4px';
+  return mode === 2 ? 'flex' : 'inline';
 }, function (_ref2) {
   var mode = _ref2.mode;
-  return mode === 2 ? '8px' : '8px';
+  return mode === 2 ? '0px' : '4px';
 }, function (_ref3) {
   var mode = _ref3.mode;
-  return mode === 2 ? '8px' : '0px';
+  return mode === 2 ? 'solid' : 'none';
 }, function (_ref4) {
   var mode = _ref4.mode;
+  return mode === 2 ? '50sspx' : 'normal';
+}, function (_ref5) {
+  var mode = _ref5.mode;
+  return mode === 2 ? '8px' : '9px';
+}, function (_ref6) {
+  var mode = _ref6.mode;
+  return mode === 2 ? '8px' : '0px';
+}, function (_ref7) {
+  var mode = _ref7.mode;
   return mode === 2 ? '10px' : '0px';
 });
 
@@ -73,13 +92,15 @@ var Text = _styledComponents["default"].span(_templateObject2());
 
 var Remove = _styledComponents["default"].span(_templateObject3());
 
-function _default(_ref5) {
-  var id = _ref5.id,
-      text = _ref5.text,
-      edit = _ref5.edit,
-      addItem = _ref5.addItem,
-      removeItem = _ref5.removeItem,
-      mode = _ref5.mode;
+var Inter = _styledComponents["default"].span(_templateObject4());
+
+function _default(_ref8) {
+  var id = _ref8.id,
+      text = _ref8.text,
+      edit = _ref8.edit,
+      addItem = _ref8.addItem,
+      removeItem = _ref8.removeItem,
+      mode = _ref8.mode;
 
   var _useState = (0, _react.useState)(edit),
       _useState2 = _slicedToArray(_useState, 2),
@@ -91,14 +112,13 @@ function _default(_ref5) {
       newText = _useState4[0],
       setNewText = _useState4[1];
 
-  console.log(mode);
-
-  var onChange = function onChange(_ref6) {
-    var value = _ref6.target.value;
-    setNewText(value);
+  var onChange = function onChange(_ref9) {
+    var innerHTML = _ref9.target.innerHTML;
+    setNewText(innerHTML);
   };
 
   var addItemHandler = function addItemHandler() {
+    console.log('blur');
     addItem({
       text: newText,
       id: id
@@ -122,15 +142,15 @@ function _default(_ref5) {
     mode: mode
   }, _react["default"].createElement(Text, {
     mode: mode
-  }, isEditing ? _react["default"].createElement("input", {
-    value: newText,
+  }, _react["default"].createElement(Inter, {
+    contentEditable: true,
+    dangerouslySetInnerHTML: {
+      __html: text
+    },
     onKeyUp: onKeyPress,
-    onChange: onChange
-  }) : _react["default"].createElement("span", {
-    onClick: function onClick() {
-      return setIsEditing(true);
-    }
-  }, text)), mode === 2 ? _react["default"].createElement(Remove, null, _react["default"].createElement("span", {
+    onBlur: addItemHandler,
+    onInput: onChange
+  })), mode === 2 ? _react["default"].createElement(Remove, null, _react["default"].createElement("span", {
     onClick: function onClick() {
       return removeItem(id);
     }

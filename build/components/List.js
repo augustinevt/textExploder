@@ -25,8 +25,38 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function _templateObject() {
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  /* border: solid; */\n  padding: 20px;\n  display: flex;\n  width: 100%;\n  justify-content: center;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  border: solid;\n  width: 20px;\n  height: 20px;\n  display: flex;\n  justify-content: center;\n  cursor: pointer;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
   var data = _taggedTemplateLiteral(["\n  width: 100%;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  width: 100%;\n  display: flex;\n  flex-wrap: wrap;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -38,6 +68,12 @@ function _templateObject() {
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var Wrapper = _styledComponents["default"].div(_templateObject());
+
+var Items = _styledComponents["default"].div(_templateObject2());
+
+var AddButton = _styledComponents["default"].div(_templateObject3());
+
+var AddButtonContainer = _styledComponents["default"].div(_templateObject4());
 
 function _default(_ref) {
   var ItemComponent = _ref.ItemComponent,
@@ -53,13 +89,15 @@ function _default(_ref) {
       add = _useState2[0],
       setAdd = _useState2[1];
 
+  console.log(itemProps);
+
   var addListItem = function addListItem(val) {
     addItem(val);
     setAdd(false);
   };
 
   var InputForm = NewItemComponent ? NewItemComponent : ItemComponent;
-  return _react["default"].createElement(Wrapper, null, // NOTE: => fix the data prop!!!
+  return _react["default"].createElement(Wrapper, null, _react["default"].createElement(Items, null, // NOTE: => fix the data prop!!!
   data ? data.map(function (item) {
     return _react["default"].createElement(ItemComponent, _extends({}, item, itemProps, {
       data: item,
@@ -75,9 +113,9 @@ function _default(_ref) {
     setAdd: setAdd,
     addItem: addListItem,
     removeItem: removeItem
-  })), _react["default"].createElement("button", {
+  })), _react["default"].createElement(AddButtonContainer, null, _react["default"].createElement(AddButton, {
     onClick: function onClick() {
       return setAdd(true);
     }
-  }, "+"));
+  }, "+"))));
 }

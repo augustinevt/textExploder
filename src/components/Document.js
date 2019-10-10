@@ -10,11 +10,24 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   padding: 30px;
+  flex-wrap: wrap;
+`
+
+const DocHeader = styled.div`
+  width: 100%;
+  flex-wrap: nowrap;
+`
+
+const Title = styled.div`
+  justify-content: center;
+  display: flex;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 40px;
 `
 
 const Body = styled.div`
   width: 60%;
-
 `
 
 const templates = [
@@ -57,7 +70,7 @@ const templates = [
  },
 ]
 
-export default function({ data }) {
+export default function({ data, back }) {
 
   const [paragraphs, setParagraphs] = useState(data.paragraphs)
 
@@ -68,6 +81,10 @@ export default function({ data }) {
 
   return (
     <Wrapper>
+      <DocHeader>
+        <div onClick={() => back()}> &lt; Back </div>
+        <Title> {data.name} </Title>
+      </DocHeader>
       <Body>
         <List
           data={data.paragraphs}

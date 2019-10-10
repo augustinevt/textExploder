@@ -15,7 +15,24 @@ const Wrapper = styled.div`
 `
 
 const ImplodedWrapper = styled.div`
+  display: flex;
+  margin-bottom: 30px;
+`
 
+const ImplodedText = styled.div`
+  /* display: flex; */
+`
+
+const ExplodeButton = styled.div`
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0px 10px;
+  /* visibility: hidden; */
+
+  &:hover {
+    color: red;
+  }
 `
 
 const GoalsListWrapper = styled.div`
@@ -103,15 +120,21 @@ export default function({data}) {
     } else {
       return (
         <ImplodedWrapper>
-          <button onClick={() => setExploded(true)}> explode </button>
-            {sentences[version].map( sentence =>
-              <Sentence
-                {...sentence}
-                mode={1}
-                addItem={(val) => addUpdate(val, sentences, setSentences, true)}
-              />
-            )}
+          <ImplodedText>
+            {
+              sentences[version].map( sentence =>
+                <Sentence
+                  {...sentence}
+                  mode={1}
+                  addItem={(val) => addUpdate(val, sentences, setSentences, true)}
+                />
+              )
+            }
+          </ImplodedText>
 
+          <ExplodeButton onClick={() => setExploded(true)}>
+            &and; &or;
+          </ExplodeButton>
 
         </ImplodedWrapper>
       )

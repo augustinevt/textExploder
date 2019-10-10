@@ -47,8 +47,28 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function _templateObject4() {
+function _templateObject6() {
   var data = _taggedTemplateLiteral(["\n  /* box-shadow: 0px 0px 10px 5px lightgrey;\n  border-radius: 9px;\n  padding: 8px; */\n  margin-bottom: 20px;\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  box-shadow: 0px 0px 10px 5px lightgrey;\n  border-radius: 9px;\n  padding: 8px;\n  margin-bottom: 20px;\n  display:flex;\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  font-size: 1.5rem;\n  font-weight: bold;\n  padding: 0px 10px;\n  /* visibility: hidden; */\n\n  &:hover {\n    color: red;\n  }\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -58,7 +78,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  box-shadow: 0px 0px 10px 5px lightgrey;\n  border-radius: 9px;\n  padding: 8px;\n  margin-bottom: 20px;\n  display:flex;\n"]);
+  var data = _taggedTemplateLiteral(["\n  /* display: flex; */\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -68,7 +88,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-bottom: 30px;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -93,9 +113,13 @@ var Wrapper = _styledComponents["default"].div(_templateObject());
 
 var ImplodedWrapper = _styledComponents["default"].div(_templateObject2());
 
-var GoalsListWrapper = _styledComponents["default"].div(_templateObject3());
+var ImplodedText = _styledComponents["default"].div(_templateObject3());
 
-var ListWrapper = _styledComponents["default"].span(_templateObject4());
+var ExplodeButton = _styledComponents["default"].div(_templateObject4());
+
+var GoalsListWrapper = _styledComponents["default"].div(_templateObject5());
+
+var ListWrapper = _styledComponents["default"].span(_templateObject6());
 
 function _default(_ref) {
   var data = _ref.data;
@@ -205,18 +229,18 @@ function _default(_ref) {
         }
       })));
     } else {
-      return _react["default"].createElement(ImplodedWrapper, null, _react["default"].createElement("button", {
-        onClick: function onClick() {
-          return setExploded(true);
-        }
-      }, " explode "), sentences[version].map(function (sentence) {
+      return _react["default"].createElement(ImplodedWrapper, null, _react["default"].createElement(ImplodedText, null, sentences[version].map(function (sentence) {
         return _react["default"].createElement(_Sentence["default"], _extends({}, sentence, {
           mode: 1,
           addItem: function addItem(val) {
             return addUpdate(val, sentences, setSentences, true);
           }
         }));
-      }));
+      })), _react["default"].createElement(ExplodeButton, {
+        onClick: function onClick() {
+          return setExploded(true);
+        }
+      }, "\u2227 \u2228"));
     }
   };
 

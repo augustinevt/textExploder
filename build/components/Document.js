@@ -31,8 +31,28 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  width: 60%;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  justify-content: center;\n  display: flex;\n  font-size: 2rem;\n  font-weight: bold;\n  margin-bottom: 40px;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  width: 60%;\n\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 100%;\n  flex-wrap: nowrap;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -42,7 +62,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: center;\n  padding: 30px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: center;\n  padding: 30px;\n  flex-wrap: wrap;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -55,7 +75,11 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 var Wrapper = _styledComponents["default"].div(_templateObject());
 
-var Body = _styledComponents["default"].div(_templateObject2());
+var DocHeader = _styledComponents["default"].div(_templateObject2());
+
+var Title = _styledComponents["default"].div(_templateObject3());
+
+var Body = _styledComponents["default"].div(_templateObject4());
 
 var templates = [{
   label: "Opinion",
@@ -114,7 +138,8 @@ var templates = [{
 }];
 
 function _default(_ref) {
-  var data = _ref.data;
+  var data = _ref.data,
+      back = _ref.back;
 
   var _useState = (0, _react.useState)(data.paragraphs),
       _useState2 = _slicedToArray(_useState, 2),
@@ -126,7 +151,11 @@ function _default(_ref) {
     paragraphs.push(newParagraph);
   };
 
-  return _react["default"].createElement(Wrapper, null, _react["default"].createElement(Body, null, _react["default"].createElement(_List["default"], {
+  return _react["default"].createElement(Wrapper, null, _react["default"].createElement(DocHeader, null, _react["default"].createElement("div", {
+    onClick: function onClick() {
+      return back();
+    }
+  }, " < Back "), _react["default"].createElement(Title, null, " ", data.name, " ")), _react["default"].createElement(Body, null, _react["default"].createElement(_List["default"], {
     data: data.paragraphs,
     ItemComponent: _Modal["default"],
     NewItemComponent: _NewParagraph["default"],
