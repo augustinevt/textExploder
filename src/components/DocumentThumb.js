@@ -7,13 +7,48 @@ const Wrapper = styled.div`
   padding: 30px;
 `
 
-export default function({ name, id, onSelect }) {
+const Remove = styled.div`
+  display: flex;
+  width: 5%;
+  color: red;
+`
 
-  console.log(id)
+export default function({ name, id, onSelect, addItem, removeItem, edit }) {
+
+  const [isEditing, setIsEditing] = useState(edit)
+  const [newText, setNewText] = useState(name)
+
+  const onChange = ({target: {value}}) => {
+    setNewText(value)
+  }
+
+  const addItemHandler = () => {
+    addItem(newText)
+  }
+
+  const removeItemHandler = () => {
+    removeItem(id)
+  }
+
+  const onKeyPress = (e) => {
+    e.preventDefault()
+    if (e.keyCode == 13) {
+      addItemHandler()
+      setIsEditing(false)
+    }
+  }
 
   return (
-    <Wrapper onClick={() => onSelect(id)}>
-      {name}
+    <Wrapper>
+
+      {
+        isEditing ? <input value={newText} onKeyUp={onKeyPress} onChange={onChange} /> : <span onClick={() => onSelect(id)}>{name}</span>
+      }
+
+      <Remove>
+        { !edit && <div onClick={() => removeItem(id)}>x</div> }
+      </Remove>
+
     </Wrapper>
   )
 }

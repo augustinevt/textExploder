@@ -5,7 +5,7 @@ const Wrapper = styled.span`
 
   display: ${({mode}) => mode === 2 ? 'flex' : 'inline'};
   margin-right: ${({mode}) => mode === 2 ? '0px' : '4px'};
-  border: ${({mode}) => mode === 2 ? 'solid' : 'none'};
+  /* border: ${({mode}) => mode === 2 ? 'solid' : 'none'}; */
   line-height: ${({mode}) => mode === 2 ? '50sspx' : 'normal'};
   margin-bottom: ${({mode}) => mode === 2 ? '8px' : '9px'};
   margin-right: ${({mode}) => mode === 2 ? '8px' : '0px'};
@@ -44,7 +44,6 @@ export default function({id, text, edit, addItem, removeItem, mode}) {
   }
 
   const addItemHandler = () => {
-    console.log('blur')
     addItem({text: newText, id})
   }
 

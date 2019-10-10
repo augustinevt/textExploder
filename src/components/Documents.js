@@ -11,26 +11,18 @@ const Wrapper = styled.div`
   padding: 30px;
 `
 
-export default function({ data, onSelect }) {
-
-  const [documentList, setDocumentList] = useState(data)
-
-  const addDocument(name) => {
-    {
-      name: '',
-      id: uuid(),
-      paragrpahs: []
-    }
-    
-  }
+export default function({ data, onSelect, addDocument, removeDocument }) {
 
   return (
     <Wrapper>
       Documents
       <List
-        data={documentList}
+        data={data}
         itemProps={{onSelect}}
+        newItemProps={{edit:true}}
         ItemComponent={DocumentThumb}
+        addItem={addDocument}
+        removeItem={removeDocument}
       />
     </Wrapper>
   )

@@ -48,7 +48,7 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _templateObject6() {
-  var data = _taggedTemplateLiteral(["\n  /* box-shadow: 0px 0px 10px 5px lightgrey;\n  border-radius: 9px;\n  padding: 8px; */\n  margin-bottom: 20px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  /* box-shadow: 0px 0px 10px 5px lightgrey;\n  border-radius: 9px;\n  padding: 8px; */\n  margin-bottom: 40px;\n"]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -58,7 +58,7 @@ function _templateObject6() {
 }
 
 function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  box-shadow: 0px 0px 10px 5px lightgrey;\n  border-radius: 9px;\n  padding: 8px;\n  margin-bottom: 20px;\n  display:flex;\n"]);
+  var data = _taggedTemplateLiteral(["\n  /* box-shadow: 0px 0px 10px 5px lightgrey; */\n  border-radius: 9px;\n  padding: 8px;\n  margin-bottom: 40px;\n  display:flex;\n"]);
 
   _templateObject5 = function _templateObject5() {
     return data;

@@ -26,7 +26,7 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  /* border: solid; */\n  padding: 20px;\n  display: flex;\n  width: 100%;\n  justify-content: center;\n"]);
+  var data = _taggedTemplateLiteral(["\n  /* border: solid; */\n  padding-top: 20px;\n  display: flex;\n  width: 100%;\n  justify-content: flex-end;\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -46,7 +46,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  width: 100%;\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 100%;\n  margin-bottom: 30px;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -106,7 +106,7 @@ function _default(_ref) {
     }));
   }) : "no items", add && _react["default"].createElement(InputForm, _extends({
     text: ''
-  }, itemProps, {
+  }, itemProps, newItemProps, {
     itemProps: itemProps,
     edit: true,
     id: 77,

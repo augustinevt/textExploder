@@ -8,6 +8,7 @@ const Wrapper = styled.div`
 `
 const Items = styled.div`
   width: 100%;
+  margin-bottom: 30px;
 `
 const AddButton = styled.div`
   border: solid;
@@ -20,10 +21,10 @@ const AddButton = styled.div`
 
 const AddButtonContainer = styled.div`
   /* border: solid; */
-  padding: 20px;
+  padding-top: 20px;
   display: flex;
   width: 100%;
-  justify-content: center;
+  justify-content: flex-end;
 `
 
 export default function({ItemComponent, itemProps, data, addItem, removeItem, NewItemComponent, newItemProps}) {
@@ -47,7 +48,7 @@ export default function({ItemComponent, itemProps, data, addItem, removeItem, Ne
         }
 
         {
-          add && (<InputForm text={''} {...itemProps} itemProps={itemProps} edit={true} id={77} setAdd={setAdd} addItem={addListItem} removeItem={removeItem} />)
+          add && (<InputForm text={''} {...itemProps} {...newItemProps} itemProps={itemProps} edit={true} id={77} setAdd={setAdd} addItem={addListItem} removeItem={removeItem} />)
         }
 
 

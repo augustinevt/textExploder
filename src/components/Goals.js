@@ -5,7 +5,7 @@ const Wrapper = styled.div`
   display: flex;
   width: 100%;
   margin-bottom: 8px;
-  box-shadow: 0px 0px 10px 5px lightgrey;
+  /* box-shadow: 0px 0px 10px 5px lightgrey; */
   border-radius: 5px;
   /* padding: 8px 2px; */
 `

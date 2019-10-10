@@ -36,17 +36,17 @@ const ExplodeButton = styled.div`
 `
 
 const GoalsListWrapper = styled.div`
-  box-shadow: 0px 0px 10px 5px lightgrey;
+  /* box-shadow: 0px 0px 10px 5px lightgrey; */
   border-radius: 9px;
   padding: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   display:flex;
 `
 const ListWrapper = styled.span`
   /* box-shadow: 0px 0px 10px 5px lightgrey;
   border-radius: 9px;
   padding: 8px; */
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 `
 
 export default function({data}) {

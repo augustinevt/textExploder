@@ -9,6 +9,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _uuid = _interopRequireDefault(require("uuid"));
+
 var _List = _interopRequireDefault(require("./List"));
 
 var _DocumentThumb = _interopRequireDefault(require("./DocumentThumb"));
@@ -35,13 +37,19 @@ var Wrapper = _styledComponents["default"].div(_templateObject());
 
 function _default(_ref) {
   var data = _ref.data,
-      onSelect = _ref.onSelect;
-  console.log(onSelect);
+      onSelect = _ref.onSelect,
+      addDocument = _ref.addDocument,
+      removeDocument = _ref.removeDocument;
   return _react["default"].createElement(Wrapper, null, "Documents", _react["default"].createElement(_List["default"], {
     data: data,
     itemProps: {
       onSelect: onSelect
     },
-    ItemComponent: _DocumentThumb["default"]
+    newItemProps: {
+      edit: true
+    },
+    ItemComponent: _DocumentThumb["default"],
+    addItem: addDocument,
+    removeItem: removeDocument
   }));
 }

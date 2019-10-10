@@ -44,7 +44,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  width: 100%;\n  margin-bottom: 8px;\n  box-shadow: 0px 0px 10px 5px lightgrey;\n  border-radius: 5px;\n  /* padding: 8px 2px; */\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  width: 100%;\n  margin-bottom: 8px;\n  /* box-shadow: 0px 0px 10px 5px lightgrey; */\n  border-radius: 5px;\n  /* padding: 8px 2px; */\n"]);
 
   _templateObject = function _templateObject() {
     return data;

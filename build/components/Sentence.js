@@ -54,7 +54,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n\n  display: ", ";\n  margin-right: ", ";\n  border: ", ";\n  line-height: ", ";\n  margin-bottom: ", ";\n  margin-right: ", ";\n  padding: ", ";\n  border-radius: 5px;\n"]);
+  var data = _taggedTemplateLiteral(["\n\n  display: ", ";\n  margin-right: ", ";\n  /* border: ", "; */\n  line-height: ", ";\n  margin-bottom: ", ";\n  margin-right: ", ";\n  padding: ", ";\n  border-radius: 5px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -118,7 +118,6 @@ function _default(_ref8) {
   };
 
   var addItemHandler = function addItemHandler() {
-    console.log('blur');
     addItem({
       text: newText,
       id: id
