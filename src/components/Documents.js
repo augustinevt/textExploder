@@ -19,7 +19,7 @@ export default function({ data, onSelect, addDocument, removeDocument }) {
       <List
         data={data}
         itemProps={{onSelect}}
-        newItemProps={{edit:true}}
+        newItemProps={{name: 'Add name here', init: true}}
         ItemComponent={DocumentThumb}
         addItem={addDocument}
         removeItem={removeDocument}

@@ -31,7 +31,7 @@ export default function({ItemComponent, itemProps, data, addItem, removeItem, Ne
 
   const [add, setAdd] = useState(false)
 
-  console.log(itemProps)
+  console.log(newItemProps)
 
   const addListItem = (val) => {
     addItem(val)
@@ -48,7 +48,7 @@ export default function({ItemComponent, itemProps, data, addItem, removeItem, Ne
         }
 
         {
-          add && (<InputForm text={''} {...itemProps} {...newItemProps} itemProps={itemProps} edit={true} id={77} setAdd={setAdd} addItem={addListItem} removeItem={removeItem} />)
+          add && (<InputForm text={''} {...itemProps} {...newItemProps} itemProps={itemProps} edit={true} setAdd={setAdd} addItem={addListItem} removeItem={removeItem} />)
         }
 
 

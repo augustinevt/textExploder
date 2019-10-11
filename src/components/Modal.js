@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react'
 import styled from 'styled-components'
+import uuid from 'uuid'
 
 import List from './List'
 import Sentence from './Sentence'
@@ -10,13 +11,15 @@ const Wrapper = styled.div`
   margin-bottom: 30px;
   width: 100%;
   box-shadow: 0px 0px 10px 5px lightgrey;
-  border-radius: 9px;
+  /* border: solid; */
   padding: 8px;
+  position: relative;
 `
 
 const ImplodedWrapper = styled.div`
   display: flex;
   margin-bottom: 30px;
+  position: relative;
 `
 
 const ImplodedText = styled.div`
@@ -28,10 +31,22 @@ const ExplodeButton = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
   padding: 0px 10px;
-  /* visibility: hidden; */
+  flex-wrap: wrap;
+  align-items: top;
+  height: 50px;
+  position: absolute;
+  right: -45px;
+  top: -10px;
+  cursor: pointer;
+  opacity: 0;
+
+  & div {
+    width: 100%
+    height: 20px;
+  }
 
   &:hover {
-    color: red;
+    opacity: 1;
   }
 `
 
@@ -49,7 +64,7 @@ const ListWrapper = styled.span`
   margin-bottom: 40px;
 `
 
-export default function({data}) {
+export default function({data, explode=true}) {
   const [exploded, setExploded] = useState(false)
   const [version, setVersion] = useState('v1')
   const [goals, setGoals] = useState(data.goals)
@@ -61,8 +76,10 @@ export default function({data}) {
     let update = false;
     let newCollection = isVersioned ? [...collection[version]] : collection
 
+    console.log('add update in modal => ', val)
+
     newCollection = newCollection.map((item) => {
-      if (item.id === val.id) {
+      if (val.id && item.id === val.id) {
         update = true
         return val
       } else {
@@ -71,7 +88,7 @@ export default function({data}) {
     })
 
     if (!update) {
-      newCollection.push(val)
+      newCollection.push({id: uuid(), text: val.text})
     }
 
     isVersioned ? setCollection({...collection, [version]: newCollection}) : setCollection(newCollection)
@@ -81,26 +98,30 @@ export default function({data}) {
     if (exploded) {
       return (
         <Wrapper>
-            <button onClick={() => setExploded(false)}> implode </button>
+            <ExplodeButton onClick={() => setExploded(false)}>
+              <div>&or;</div>
+              <div>&and;</div>
+            </ExplodeButton>
             <h2>{data.label && data.label}</h2>
-            <button onClick={() => setVersion('v1')}> v1 </button>
-            <button onClick={() => setVersion('v2')}> v2 </button>
 
             <h3> Goals </h3>
             <GoalsListWrapper>
               <List
                 data={goals[version]}
                 itemProps={{mode: 2}}
+                newItemProps={{text: 'Add Goal text here...', init: true}}
                 ItemComponent={Goals}
                 addItem={(val) => addUpdate(val, goals, setGoals, true)}
                 removeItem={(goalId) => setGoals({...goals, [version]: goals[version].filter(({id}) => id !== goalId)})}
               />
             </GoalsListWrapper>
+            <h3> Sentence </h3>
             <ListWrapper>
               <List
                 data={sentences[version]}
                 itemProps={{mode: 2}}
                 ItemComponent={Sentence}
+                newItemProps={{text: 'Add Sentence text herde...', init: true}}
                 addItem={(val) => addUpdate(val, sentences, setSentences, true)}
                 removeItem={(sentenceId) => setSentences({...sentences, [version]: sentences[version].filter(({id}) => id !== sentenceId)})}
               />
@@ -109,6 +130,7 @@ export default function({data}) {
             <ListWrapper>
               <List
                 data={snippets}
+                newItemProps={{text: 'Add Snippet text herde...', init: true}}
                 itemProps={{mode: 2}}
                 ItemComponent={Snippet}
                 addItem={(val) => addUpdate(val, snippets, setSnippets, false)}
@@ -132,10 +154,17 @@ export default function({data}) {
             }
           </ImplodedText>
 
-          <ExplodeButton onClick={() => setExploded(true)}>
-            &and; &or;
-          </ExplodeButton>
+          {
+             explode ?
+              <ExplodeButton onClick={() => setExploded(true)}>
 
+                <div>&and;</div>
+                <div>&or;</div>
+
+              </ExplodeButton>
+            :
+              null
+          }
         </ImplodedWrapper>
       )
     }

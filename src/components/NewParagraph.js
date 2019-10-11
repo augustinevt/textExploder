@@ -1,25 +1,68 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import uuid from 'uuid'
 
 import List from './List'
 import Goals from './Goals'
 import Modal from './Modal'
+import Button from './Button'
+import TextInput from './Text'
 
 const Wrapper = styled.div`
-  border: solid;
+  /* border: solid; */
 `
+
+const InnerWrapper = styled.div`
+  border: solid;
+  padding: 20px;
+  margin-bottom: 4px;
+`
+
+const ButtonContainer = styled.div`
+  display: flex;
+  margin: 0px -4px;
+`
+
+const TemplateSelectContainer = styled.div`
+  display: flex;
+`
+
+const TemplateOption = styled.div`
+  flex-wrap: wrap;
+  border: solid;
+  padding: 10px;
+  margin: 10px;
+  color: ${({active}) => active ? 'black' : 'grey'}
+`
+
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  text-align: left;
+  width: 100%;
+  margin: 20px;
+  margin-left: 0px;
+  font-weight: bold;
+`
+
+const DoneButton = styled.div`
+  width: 100%
+  display: flex;
+  justify-content: flex-end;
+`
+
 export default function({addItem, removeItem, setAdd, templates}) {
 
   const [flowStep, setFlowStep] = useState(0)
   const [label, setLabel] = useState('Add a label...')
-  const [goals, setGoals] = useState([])
+  const [goals, setGoals] = useState([{id: uuid(), text: 'Introduce Topic'}])
   const [template, setTemplate] = useState(false)
 
   const addParagraph = () => {
     let newParagraph = {}
 
     if (template) {
-      newParagraph = {...template, goals: {v1: [...template.goals.v1, ...goals]}, label}
+      newParagraph = {...template, goals: {v1: [...goals]}, label}
     } else {
       newParagraph = { label, goals: {v1: [...goals]}, snippets: [], sentences: {v1: []}}
     }
@@ -27,75 +70,97 @@ export default function({addItem, removeItem, setAdd, templates}) {
     addItem(newParagraph)
   }
 
+  const selectTemplate = (selectedTemplate) => {
 
-  const getJSX = () => {
+    if (template && (selectedTemplate.id === template.id)) {
 
-    if (flowStep === 0) {
-      return (
-        <div>
-        <List
-          data={goals}
-          ItemComponent={Goals}
-          addItem={(newGoal) => setGoals([...goals, newGoal])}
-          removeItem={(goalId) => setGoals(goals.filter(({id}) => id !== goalId))}
-        />
+      const newGoals = clearGoals(template)
 
-        <div>
-          <button onClick={() => setAdd(false)}>Cancel</button>
-          <button onClick={() => setFlowStep(1)}>Templates</button>
-          <button onClick={addParagraph}>Done</button>
-        </div>
+      setTemplate(false)
+      setGoals([...newGoals])
 
-        </div>
-      )
+    } else if (template) {
 
-    } else if ( flowStep === 1) {
+      const newGoals = clearGoals(template)
 
-      return (
-        <div>
-          { templates.map(template => (<span onClick={() => {
-            setTemplate(template)
-            setFlowStep(2)
-          }}> {template.label} </span>)) }
-
-          <div>
-            <button onClick={() => setAdd(false)}>Cancel</button>
-            <button onClick={() => setFlowStep(0)}>Back</button>
-            <button onClick={addParagraph}>Done</button>
-          </div>
-
-        </div>
-      )
-
+      setTemplate(selectedTemplate)
+      setGoals([...selectedTemplate.goals.v1, ...newGoals])
     } else {
-
-      return (
-        <div>
-          <Modal data={template} />
-          <div>
-            <button onClick={() => setAdd(false)}>Cancel</button>
-            <button onClick={() => setFlowStep(1)}>Back</button>
-            <button onClick={addParagraph}>Done</button>
-          </div>
-        </div>
-      )
-
+      setTemplate(selectedTemplate)
+      setGoals([...selectedTemplate.goals.v1, ...goals])
     }
+
   }
 
+  const clearGoals = (template) => {
+    return goals.filter((newGoals) => {
+      let keepGoal = true;
+      template && template.goals.v1.forEach(templateGoals => {
+        if (templateGoals.id === newGoals.id) keepGoal = false
+      })
+      return keepGoal
+    })
+  }
+
+
+  const addGoal = ({text, id}) => {
+    let newGoals = []
+    if (id) {
+      newGoals = goals.map((goal) => goal.id === id ? {text, id} : goal)
+      console.log(" HAD ID", goals.id, id)
+    } else {
+      console.log(" HAD NO ID")
+      newGoals = [...goals, {text, id}]
+    }
+
+    setGoals(newGoals)
+  }
 
   return (
     <Wrapper>
 
-      <label> name </label>
-      <input value={label} onChange={({target: {value}}) => setLabel(value) }/>
+      <InnerWrapper>
 
-      { template ? `Using template ${template.label}` : 'no template'}
+        <TitleContainer>
+          <TextInput text={'Add Label...'} edit={true} init={true} addItemHandler={value => setLabel(value) }/>
+        </TitleContainer>
 
-      <button onClick={() => {setTemplate(false); setFlowStep(0)}}> Clear Template </button>
+        <TitleContainer>
+          Add Template:
+        </TitleContainer>
 
+        <TemplateSelectContainer>
 
-      { getJSX() }
+        { templates.map(templateItem => (<TemplateOption active={template && template.id === templateItem.id} onClick={() => {
+          selectTemplate(templateItem)
+          setFlowStep(2)
+        }}> {templateItem.label} </TemplateOption>)) }
+
+        </TemplateSelectContainer>
+
+        <TitleContainer>
+          Add Goals:
+        </TitleContainer>
+        <List
+          data={goals}
+          ItemComponent={Goals}
+          newItemProps={{text: 'Add Goal', init: true}}
+          addItem={addGoal}
+          removeItem={(goalId) => setGoals(goals.filter(({id}) => id !== goalId))}
+        />
+
+        {template && <Modal data={template} explode={false} />}
+
+      </InnerWrapper>
+
+      <ButtonContainer>
+        <Button text={'Cancel'} onClick={() => setAdd(false)} />
+        <Button text={'Back'} onClick={() => setFlowStep(1)} />
+        <DoneButton>
+          <Button text={'Done'} onClick={addParagraph} />
+        </DoneButton>
+      </ButtonContainer>
+
 
     </Wrapper>
   )

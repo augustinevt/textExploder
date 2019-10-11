@@ -9,8 +9,6 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _Text = _interopRequireDefault(require("./Text"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
@@ -25,28 +23,8 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  width: 5%;\n  color: red;\n"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  width: 95%;\n  justify-content: flex-start;\n  padding: 8px 8px;\n  text-align: left;\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  width: 100%;\n  margin-bottom: 8px;\n  /* box-shadow: 0px 0px 10px 5px lightgrey; */\n  border-radius: 5px;\n  /* padding: 8px 2px; */\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n\n  &:hover {\n    color: black;\n\n  }\n\n  &:active, &:focus {\n    color: black;\n    border: none;\n    outline: none;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -57,66 +35,55 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var Wrapper = _styledComponents["default"].div(_templateObject());
+var Inter = _styledComponents["default"].span(_templateObject(), function (_ref) {
+  var init = _ref.init;
+  return init ? 'black' : 'grey';
+});
 
-var Text = _styledComponents["default"].div(_templateObject2());
+function _default(_ref2) {
+  var text = _ref2.text,
+      id = _ref2.id,
+      addItemHandler = _ref2.addItemHandler,
+      edit = _ref2.edit,
+      init = _ref2.init,
+      _ref2$onClick = _ref2.onClick,
+      _onClick = _ref2$onClick === void 0 ? function () {} : _ref2$onClick;
 
-var Remove = _styledComponents["default"].div(_templateObject3());
-
-function _default(_ref) {
-  var id = _ref.id,
-      text = _ref.text,
-      edit = _ref.edit,
-      init = _ref.init,
-      addItem = _ref.addItem,
-      removeItem = _ref.removeItem;
-
-  var _useState = (0, _react.useState)(edit),
+  var _useState = (0, _react.useState)(text),
       _useState2 = _slicedToArray(_useState, 2),
-      isEditing = _useState2[0],
-      setIsEditing = _useState2[1];
+      newText = _useState2[0],
+      setNewText = _useState2[1];
 
-  var _useState3 = (0, _react.useState)(text),
-      _useState4 = _slicedToArray(_useState3, 2),
-      newText = _useState4[0],
-      setNewText = _useState4[1];
-
-  var onChange = function onChange(_ref2) {
-    var value = _ref2.target.value;
-    setNewText(value);
+  var onChange = function onChange(_ref3) {
+    var innerHTML = _ref3.target.innerHTML;
+    console.log('=> ', id);
+    setNewText(innerHTML);
   };
 
-  var _addItemHandler = function addItemHandler(inputText) {
-    addItem({
-      text: inputText,
-      id: id
-    });
-  };
-
-  var removeItemHandler = function removeItemHandler() {
-    removeItem(id);
+  var changeHandler = function changeHandler() {
+    addItemHandler(newText);
   };
 
   var onKeyPress = function onKeyPress(e) {
-    e.preventDefault();
-
     if (e.keyCode == 13) {
-      _addItemHandler();
-
-      setIsEditing(false);
+      event.returnValue = false;
+      e.preventDefault();
     }
   };
 
-  return _react["default"].createElement(Wrapper, null, _react["default"].createElement(Text, null, _react["default"].createElement(_Text["default"], {
-    text: text,
-    edit: true,
-    init: init,
-    addItemHandler: function addItemHandler(val) {
-      return _addItemHandler(val);
-    }
-  })), _react["default"].createElement(Remove, null, _react["default"].createElement("div", {
+  return _react["default"].createElement(Inter, {
     onClick: function onClick() {
-      return removeItem(id);
-    }
-  }, "x")));
+      return !edit && _onClick();
+    },
+    init: init,
+    contentEditable: edit,
+    dangerouslySetInnerHTML: {
+      __html: text
+    },
+    onBlur: function onBlur() {
+      return changeHandler();
+    },
+    onKeyDown: onKeyPress,
+    onInput: onChange
+  });
 }

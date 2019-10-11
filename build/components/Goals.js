@@ -9,6 +9,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _Text = _interopRequireDefault(require("./Text"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
@@ -64,6 +66,7 @@ var Remove = _styledComponents["default"].div(_templateObject3());
 function _default(_ref) {
   var id = _ref.id,
       text = _ref.text,
+      init = _ref.init,
       edit = _ref.edit,
       addItem = _ref.addItem,
       removeItem = _ref.removeItem;
@@ -83,9 +86,9 @@ function _default(_ref) {
     setNewText(value);
   };
 
-  var addItemHandler = function addItemHandler() {
+  var _addItemHandler = function addItemHandler(inputText) {
     addItem({
-      text: newText,
+      text: inputText,
       id: id
     });
   };
@@ -98,20 +101,24 @@ function _default(_ref) {
     e.preventDefault();
 
     if (e.keyCode == 13) {
-      addItemHandler();
+      _addItemHandler();
+
       setIsEditing(false);
     }
   };
 
-  return _react["default"].createElement(Wrapper, null, _react["default"].createElement(Text, null, isEditing ? _react["default"].createElement("input", {
-    value: newText,
-    onKeyUp: onKeyPress,
-    onChange: onChange
-  }) : _react["default"].createElement("span", {
+  return _react["default"].createElement(Wrapper, null, _react["default"].createElement(Text, null, _react["default"].createElement(_Text["default"], {
     onClick: function onClick() {
       return setIsEditing(true);
+    },
+    id: id,
+    edit: isEditing,
+    text: text,
+    init: init,
+    addItemHandler: function addItemHandler(val) {
+      return _addItemHandler(val);
     }
-  }, text)), _react["default"].createElement(Remove, null, _react["default"].createElement("div", {
+  })), _react["default"].createElement(Remove, null, _react["default"].createElement("div", {
     onClick: function onClick() {
       return removeItem(id);
     }

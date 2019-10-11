@@ -32,7 +32,7 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  width: 60%;\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 80%;\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -83,6 +83,7 @@ var Body = _styledComponents["default"].div(_templateObject4());
 
 var templates = [{
   label: "Opinion",
+  id: 'asdf9d8s09d8f',
   goals: {
     v1: [{
       text: 'v2',
@@ -110,6 +111,7 @@ var templates = [{
   snippets: []
 }, {
   label: "Support",
+  id: '9d8sasdf09d8f',
   goals: {
     v1: [{
       text: 'v1',

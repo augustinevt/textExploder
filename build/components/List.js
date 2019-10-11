@@ -89,7 +89,7 @@ function _default(_ref) {
       add = _useState2[0],
       setAdd = _useState2[1];
 
-  console.log(itemProps);
+  console.log(newItemProps);
 
   var addListItem = function addListItem(val) {
     addItem(val);
@@ -109,7 +109,6 @@ function _default(_ref) {
   }, itemProps, newItemProps, {
     itemProps: itemProps,
     edit: true,
-    id: 77,
     setAdd: setAdd,
     addItem: addListItem,
     removeItem: removeItem

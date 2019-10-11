@@ -34,7 +34,7 @@ const Inter = styled.span`
   }
 `
 
-export default function({id, text, edit, addItem, removeItem, mode}) {
+export default function({id, text, edit, init, addItem, removeItem, mode}) {
 
   const [isEditing, setIsEditing] = useState(edit)
   const [newText, setNewText] = useState(text)
@@ -64,6 +64,8 @@ export default function({id, text, edit, addItem, removeItem, mode}) {
       <Text mode={mode}>
         {
           <Inter
+            edit={true}
+            init={init}
             contentEditable={true}
             dangerouslySetInnerHTML={{__html: text}}
             onKeyUp={onKeyPress}

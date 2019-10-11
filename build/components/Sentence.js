@@ -98,6 +98,7 @@ function _default(_ref8) {
   var id = _ref8.id,
       text = _ref8.text,
       edit = _ref8.edit,
+      init = _ref8.init,
       addItem = _ref8.addItem,
       removeItem = _ref8.removeItem,
       mode = _ref8.mode;
@@ -142,6 +143,8 @@ function _default(_ref8) {
   }, _react["default"].createElement(Text, {
     mode: mode
   }, _react["default"].createElement(Inter, {
+    edit: true,
+    init: init,
     contentEditable: true,
     dangerouslySetInnerHTML: {
       __html: text

@@ -9,6 +9,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _uuid = _interopRequireDefault(require("uuid"));
+
 var _List = _interopRequireDefault(require("./List"));
 
 var _Sentence = _interopRequireDefault(require("./Sentence"));
@@ -68,7 +70,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  font-size: 1.5rem;\n  font-weight: bold;\n  padding: 0px 10px;\n  /* visibility: hidden; */\n\n  &:hover {\n    color: red;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  font-size: 1.5rem;\n  font-weight: bold;\n  padding: 0px 10px;\n  flex-wrap: wrap;\n  align-items: top;\n  height: 50px;\n  position: absolute;\n  right: -45px;\n  top: -10px;\n  cursor: pointer;\n  opacity: 0;\n\n  & div {\n    width: 100%\n    height: 20px;\n  }\n\n  &:hover {\n    opacity: 1;\n  }\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -88,7 +90,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-bottom: 30px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-bottom: 30px;\n  position: relative;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -98,7 +100,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  margin-bottom: 30px;\n  width: 100%;\n  box-shadow: 0px 0px 10px 5px lightgrey;\n  border-radius: 9px;\n  padding: 8px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-bottom: 30px;\n  width: 100%;\n  box-shadow: 0px 0px 10px 5px lightgrey;\n  /* border: solid; */\n  padding: 8px;\n  position: relative;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -122,7 +124,9 @@ var GoalsListWrapper = _styledComponents["default"].div(_templateObject5());
 var ListWrapper = _styledComponents["default"].span(_templateObject6());
 
 function _default(_ref) {
-  var data = _ref.data;
+  var data = _ref.data,
+      _ref$explode = _ref.explode,
+      explode = _ref$explode === void 0 ? true : _ref$explode;
 
   var _useState = (0, _react.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -152,8 +156,9 @@ function _default(_ref) {
   var addUpdate = function addUpdate(val, collection, setCollection, isVersioned) {
     var update = false;
     var newCollection = isVersioned ? _toConsumableArray(collection[version]) : collection;
+    console.log('add update in modal => ', val);
     newCollection = newCollection.map(function (item) {
-      if (item.id === val.id) {
+      if (val.id && item.id === val.id) {
         update = true;
         return val;
       } else {
@@ -162,7 +167,10 @@ function _default(_ref) {
     });
 
     if (!update) {
-      newCollection.push(val);
+      newCollection.push({
+        id: (0, _uuid["default"])(),
+        text: val.text
+      });
     }
 
     isVersioned ? setCollection(_objectSpread({}, collection, _defineProperty({}, version, newCollection))) : setCollection(newCollection);
@@ -170,22 +178,18 @@ function _default(_ref) {
 
   var getJsx = function getJsx() {
     if (exploded) {
-      return _react["default"].createElement(Wrapper, null, _react["default"].createElement("button", {
+      return _react["default"].createElement(Wrapper, null, _react["default"].createElement(ExplodeButton, {
         onClick: function onClick() {
           return setExploded(false);
         }
-      }, " implode "), _react["default"].createElement("h2", null, data.label && data.label), _react["default"].createElement("button", {
-        onClick: function onClick() {
-          return setVersion('v1');
-        }
-      }, " v1 "), _react["default"].createElement("button", {
-        onClick: function onClick() {
-          return setVersion('v2');
-        }
-      }, " v2 "), _react["default"].createElement("h3", null, " Goals "), _react["default"].createElement(GoalsListWrapper, null, _react["default"].createElement(_List["default"], {
+      }, _react["default"].createElement("div", null, "\u2228"), _react["default"].createElement("div", null, "\u2227")), _react["default"].createElement("h2", null, data.label && data.label), _react["default"].createElement("h3", null, " Goals "), _react["default"].createElement(GoalsListWrapper, null, _react["default"].createElement(_List["default"], {
         data: goals[version],
         itemProps: {
           mode: 2
+        },
+        newItemProps: {
+          text: 'Add Goal text here...',
+          init: true
         },
         ItemComponent: _Goals["default"],
         addItem: function addItem(val) {
@@ -197,12 +201,16 @@ function _default(_ref) {
             return id !== goalId;
           }))));
         }
-      })), _react["default"].createElement(ListWrapper, null, _react["default"].createElement(_List["default"], {
+      })), _react["default"].createElement("h3", null, " Sentence "), _react["default"].createElement(ListWrapper, null, _react["default"].createElement(_List["default"], {
         data: sentences[version],
         itemProps: {
           mode: 2
         },
         ItemComponent: _Sentence["default"],
+        newItemProps: {
+          text: 'Add Sentence text herde...',
+          init: true
+        },
         addItem: function addItem(val) {
           return addUpdate(val, sentences, setSentences, true);
         },
@@ -214,6 +222,10 @@ function _default(_ref) {
         }
       })), _react["default"].createElement("h3", null, " Snippets "), _react["default"].createElement(ListWrapper, null, _react["default"].createElement(_List["default"], {
         data: snippets,
+        newItemProps: {
+          text: 'Add Snippet text herde...',
+          init: true
+        },
         itemProps: {
           mode: 2
         },
@@ -236,11 +248,11 @@ function _default(_ref) {
             return addUpdate(val, sentences, setSentences, true);
           }
         }));
-      })), _react["default"].createElement(ExplodeButton, {
+      })), explode ? _react["default"].createElement(ExplodeButton, {
         onClick: function onClick() {
           return setExploded(true);
         }
-      }, "\u2227 \u2228"));
+      }, _react["default"].createElement("div", null, "\u2227"), _react["default"].createElement("div", null, "\u2228")) : null);
     }
   };
 

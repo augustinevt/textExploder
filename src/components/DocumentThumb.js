@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
+import TextInput from './Text'
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -13,7 +15,7 @@ const Remove = styled.div`
   color: red;
 `
 
-export default function({ name, id, onSelect, addItem, removeItem, edit }) {
+export default function({ name, id, onSelect, init, addItem, removeItem, edit }) {
 
   const [isEditing, setIsEditing] = useState(edit)
   const [newText, setNewText] = useState(name)
@@ -22,8 +24,8 @@ export default function({ name, id, onSelect, addItem, removeItem, edit }) {
     setNewText(value)
   }
 
-  const addItemHandler = () => {
-    addItem(newText)
+  const addItemHandler = (inputVal) => {
+    addItem(inputVal)
   }
 
   const removeItemHandler = () => {
@@ -41,12 +43,11 @@ export default function({ name, id, onSelect, addItem, removeItem, edit }) {
   return (
     <Wrapper>
 
-      {
-        isEditing ? <input value={newText} onKeyUp={onKeyPress} onChange={onChange} /> : <span onClick={() => onSelect(id)}>{name}</span>
-      }
+      <TextInput onClick={() => onSelect(id)} text={name} edit={isEditing} init={init} addItemHandler={(val) => addItemHandler(val)} />
 
       <Remove>
         { !edit && <div onClick={() => removeItem(id)}>x</div> }
+        { !edit && <div onClick={() => setIsEditing(true)}>E</div> }
       </Remove>
 
     </Wrapper>

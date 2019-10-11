@@ -27,12 +27,13 @@ const Title = styled.div`
 `
 
 const Body = styled.div`
-  width: 60%;
+  width: 80%;
 `
 
 const templates = [
   {
   label: "Opinion",
+  id: 'asdf9d8s09d8f',
     goals: {
      v1: [
        {text: 'v2', id: 23},
@@ -52,6 +53,7 @@ const templates = [
 
   {
    label: "Support",
+   id: '9d8sasdf09d8f',
    goals: {
      v1: [
        {text: 'v1', id: 23},

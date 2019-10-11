@@ -9,11 +9,17 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _uuid = _interopRequireDefault(require("uuid"));
+
 var _List = _interopRequireDefault(require("./List"));
 
 var _Goals = _interopRequireDefault(require("./Goals"));
 
 var _Modal = _interopRequireDefault(require("./Modal"));
+
+var _Button = _interopRequireDefault(require("./Button"));
+
+var _Text = _interopRequireDefault(require("./Text"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -43,8 +49,68 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["\n  width: 100%\n  display: flex;\n  justify-content: flex-end;\n"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: flex-start;\n  text-align: left;\n  width: 100%;\n  margin: 20px;\n  margin-left: 0px;\n  font-weight: bold;\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  flex-wrap: wrap;\n  border: solid;\n  padding: 10px;\n  margin: 10px;\n  color: ", "\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin: 0px -4px;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  border: solid;\n  padding: 20px;\n  margin-bottom: 4px;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  border: solid;\n"]);
+  var data = _taggedTemplateLiteral(["\n  /* border: solid; */\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -57,11 +123,26 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 var Wrapper = _styledComponents["default"].div(_templateObject());
 
-function _default(_ref) {
-  var addItem = _ref.addItem,
-      removeItem = _ref.removeItem,
-      setAdd = _ref.setAdd,
-      templates = _ref.templates;
+var InnerWrapper = _styledComponents["default"].div(_templateObject2());
+
+var ButtonContainer = _styledComponents["default"].div(_templateObject3());
+
+var TemplateSelectContainer = _styledComponents["default"].div(_templateObject4());
+
+var TemplateOption = _styledComponents["default"].div(_templateObject5(), function (_ref) {
+  var active = _ref.active;
+  return active ? 'black' : 'grey';
+});
+
+var TitleContainer = _styledComponents["default"].div(_templateObject6());
+
+var DoneButton = _styledComponents["default"].div(_templateObject7());
+
+function _default(_ref2) {
+  var addItem = _ref2.addItem,
+      removeItem = _ref2.removeItem,
+      setAdd = _ref2.setAdd,
+      templates = _ref2.templates;
 
   var _useState = (0, _react.useState)(0),
       _useState2 = _slicedToArray(_useState, 2),
@@ -73,7 +154,10 @@ function _default(_ref) {
       label = _useState4[0],
       setLabel = _useState4[1];
 
-  var _useState5 = (0, _react.useState)([]),
+  var _useState5 = (0, _react.useState)([{
+    id: (0, _uuid["default"])(),
+    text: 'Introduce Topic'
+  }]),
       _useState6 = _slicedToArray(_useState5, 2),
       goals = _useState6[0],
       setGoals = _useState6[1];
@@ -89,7 +173,7 @@ function _default(_ref) {
     if (template) {
       newParagraph = _objectSpread({}, template, {
         goals: {
-          v1: [].concat(_toConsumableArray(template.goals.v1), _toConsumableArray(goals))
+          v1: _toConsumableArray(goals)
         },
         label: label
       });
@@ -109,77 +193,100 @@ function _default(_ref) {
     addItem(newParagraph);
   };
 
-  var getJSX = function getJSX() {
-    if (flowStep === 0) {
-      return _react["default"].createElement("div", null, _react["default"].createElement(_List["default"], {
-        data: goals,
-        ItemComponent: _Goals["default"],
-        addItem: function addItem(newGoal) {
-          return setGoals([].concat(_toConsumableArray(goals), [newGoal]));
-        },
-        removeItem: function removeItem(goalId) {
-          return setGoals(goals.filter(function (_ref2) {
-            var id = _ref2.id;
-            return id !== goalId;
-          }));
-        }
-      }), _react["default"].createElement("div", null, _react["default"].createElement("button", {
-        onClick: function onClick() {
-          return setAdd(false);
-        }
-      }, "Cancel"), _react["default"].createElement("button", {
-        onClick: function onClick() {
-          return setFlowStep(1);
-        }
-      }, "Templates"), _react["default"].createElement("button", {
-        onClick: addParagraph
-      }, "Done")));
-    } else if (flowStep === 1) {
-      return _react["default"].createElement("div", null, templates.map(function (template) {
-        return _react["default"].createElement("span", {
-          onClick: function onClick() {
-            setTemplate(template);
-            setFlowStep(2);
-          }
-        }, " ", template.label, " ");
-      }), _react["default"].createElement("div", null, _react["default"].createElement("button", {
-        onClick: function onClick() {
-          return setAdd(false);
-        }
-      }, "Cancel"), _react["default"].createElement("button", {
-        onClick: function onClick() {
-          return setFlowStep(0);
-        }
-      }, "Back"), _react["default"].createElement("button", {
-        onClick: addParagraph
-      }, "Done")));
+  var selectTemplate = function selectTemplate(selectedTemplate) {
+    if (template && selectedTemplate.id === template.id) {
+      var newGoals = clearGoals(template);
+      setTemplate(false);
+      setGoals(_toConsumableArray(newGoals));
+    } else if (template) {
+      var _newGoals = clearGoals(template);
+
+      setTemplate(selectedTemplate);
+      setGoals([].concat(_toConsumableArray(selectedTemplate.goals.v1), _toConsumableArray(_newGoals)));
     } else {
-      return _react["default"].createElement("div", null, _react["default"].createElement(_Modal["default"], {
-        data: template
-      }), _react["default"].createElement("div", null, _react["default"].createElement("button", {
-        onClick: function onClick() {
-          return setAdd(false);
-        }
-      }, "Cancel"), _react["default"].createElement("button", {
-        onClick: function onClick() {
-          return setFlowStep(1);
-        }
-      }, "Back"), _react["default"].createElement("button", {
-        onClick: addParagraph
-      }, "Done")));
+      setTemplate(selectedTemplate);
+      setGoals([].concat(_toConsumableArray(selectedTemplate.goals.v1), _toConsumableArray(goals)));
     }
   };
 
-  return _react["default"].createElement(Wrapper, null, _react["default"].createElement("label", null, " name "), _react["default"].createElement("input", {
-    value: label,
-    onChange: function onChange(_ref3) {
-      var value = _ref3.target.value;
+  var clearGoals = function clearGoals(template) {
+    return goals.filter(function (newGoals) {
+      var keepGoal = true;
+      template && template.goals.v1.forEach(function (templateGoals) {
+        if (templateGoals.id === newGoals.id) keepGoal = false;
+      });
+      return keepGoal;
+    });
+  };
+
+  var addGoal = function addGoal(_ref3) {
+    var text = _ref3.text,
+        id = _ref3.id;
+    var newGoals = [];
+
+    if (id) {
+      newGoals = goals.map(function (goal) {
+        return goal.id === id ? {
+          text: text,
+          id: id
+        } : goal;
+      });
+      console.log(" HAD ID", goals.id, id);
+    } else {
+      console.log(" HAD NO ID");
+      newGoals = [].concat(_toConsumableArray(goals), [{
+        text: text,
+        id: id
+      }]);
+    }
+
+    setGoals(newGoals);
+  };
+
+  return _react["default"].createElement(Wrapper, null, _react["default"].createElement(InnerWrapper, null, _react["default"].createElement(TitleContainer, null, _react["default"].createElement(_Text["default"], {
+    text: 'Add Label...',
+    edit: true,
+    init: true,
+    addItemHandler: function addItemHandler(value) {
       return setLabel(value);
     }
-  }), template ? "Using template ".concat(template.label) : 'no template', _react["default"].createElement("button", {
-    onClick: function onClick() {
-      setTemplate(false);
-      setFlowStep(0);
+  })), _react["default"].createElement(TitleContainer, null, "Add Template:"), _react["default"].createElement(TemplateSelectContainer, null, templates.map(function (templateItem) {
+    return _react["default"].createElement(TemplateOption, {
+      active: template && template.id === templateItem.id,
+      onClick: function onClick() {
+        selectTemplate(templateItem);
+        setFlowStep(2);
+      }
+    }, " ", templateItem.label, " ");
+  })), _react["default"].createElement(TitleContainer, null, "Add Goals:"), _react["default"].createElement(_List["default"], {
+    data: goals,
+    ItemComponent: _Goals["default"],
+    newItemProps: {
+      text: 'Add Goal',
+      init: true
+    },
+    addItem: addGoal,
+    removeItem: function removeItem(goalId) {
+      return setGoals(goals.filter(function (_ref4) {
+        var id = _ref4.id;
+        return id !== goalId;
+      }));
     }
-  }, " Clear Template "), getJSX());
+  }), template && _react["default"].createElement(_Modal["default"], {
+    data: template,
+    explode: false
+  })), _react["default"].createElement(ButtonContainer, null, _react["default"].createElement(_Button["default"], {
+    text: 'Cancel',
+    onClick: function onClick() {
+      return setAdd(false);
+    }
+  }), _react["default"].createElement(_Button["default"], {
+    text: 'Back',
+    onClick: function onClick() {
+      return setFlowStep(1);
+    }
+  }), _react["default"].createElement(DoneButton, null, _react["default"].createElement(_Button["default"], {
+    text: 'Done',
+    onClick: addParagraph
+  }))));
 }
